@@ -4,7 +4,7 @@
 VAGRANT_DISABLE_VBOXSYMLINKCREATE=1
 
 vms = {
-  'multicloud-client' => {'memory' => '1024', 'cpus' => 1, 'ip' => '200', 'box' => 'devopsbox/ubuntu-20.04', 'provision' => 'multicloud-client.sh'},
+  'multicloud-client' => {'memory' => '1024', 'cpus' => 1, 'ip' => '200', 'box' => 'devopsbox/ubuntu-20.04', 'provision' => 'provision/ansible/multicloud-client.yaml'},
 }
 
 Vagrant.configure('2') do |config|
@@ -26,6 +26,7 @@ Vagrant.configure('2') do |config|
       end
       k.vm.provision 'ansible_local' do |ansible|
         ansible.playbook = "#{conf['provision']}"
+        ansible.compatibility_mode = '2.0'
       end
     end
   end
